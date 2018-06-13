@@ -9,9 +9,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.boylc.assmob403.R;
-import com.example.boylc.assmob403.uis.fragments.BlankFragment;
+import com.example.boylc.assmob403.uis.fragments.AboutUsFragment;
+import com.example.boylc.assmob403.uis.fragments.CategoryFragment;
+import com.example.boylc.assmob403.uis.fragments.GiftFragment;
+import com.example.boylc.assmob403.uis.fragments.LastestFragment;
+import com.example.boylc.assmob403.uis.fragments.SettingFragment;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
@@ -30,9 +35,7 @@ public class MainActivity extends AppCompatActivity {
         // Set a Toolbar to replace the ActionBar.
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             toolbar.setNavigationIcon(R.drawable.ic_humburger);
         }
@@ -47,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         nvDrawer = findViewById(R.id.nvView);
         // Setup drawer view
         setupDrawerContent(nvDrawer);
+        // add lastest fragment when first time
+        selectDrawerItem(nvDrawer.getMenu().getItem(0));
 
     }
 
@@ -60,34 +65,50 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         //todo
         Fragment fragment = null;
-        Class fragmentClass;
-        switch(menuItem.getItemId()) {
-            case R.id.nav_first_fragment:
-                fragmentClass = BlankFragment.class;
+        Class fragmentClass=null;
+        switch (menuItem.getItemId()) {
+            case R.id.nav_home_fragment:
+                fragmentClass = LastestFragment.class;
                 break;
-            case R.id.nav_second_fragment:
-                fragmentClass = BlankFragment.class;
+            case R.id.nav_category_fragment:
+                fragmentClass = CategoryFragment.class;
                 break;
-            case R.id.nav_third_fragment:
-                fragmentClass = BlankFragment.class;
+            case R.id.nav_gift_fragment:
+                fragmentClass = GiftFragment.class;
+                break;
+            case R.id.nav_about_us_fragment:
+                fragmentClass = AboutUsFragment.class;
+                break;
+            case R.id.nav_setting_fragment:
+                fragmentClass = SettingFragment.class;
+                break;
+            case R.id.nav_rate_app:
+                Toast.makeText(this, "Rate App", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_more_app:
+                Toast.makeText(this, "More App", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_privacy:
+                Toast.makeText(this, "Privacy ", Toast.LENGTH_SHORT).show();
                 break;
             default:
-                fragmentClass = BlankFragment.class;
+                fragmentClass = LastestFragment.class;
         }
-
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (fragmentClass!=null){
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
         }
-
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
 
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
@@ -96,10 +117,11 @@ public class MainActivity extends AppCompatActivity {
         // Close the navigation drawer
         mDrawer.closeDrawers();
     }
+
     private ActionBarDrawerToggle setupDrawerToggle() {
         // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
         // and will not render the hamburger icon without it.
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     @Override
@@ -115,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
         // Pass any configuration change to the drawer toggles
         drawerToggle.onConfigurationChanged(newConfig);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
