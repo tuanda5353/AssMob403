@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AssMob403</string>
+    <string name="app_name">HD Wallpaper</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -15,5 +15,6 @@
     <string name="setting">Setting</string>
     <string name="privacy_police">Privacy Police</string>
     <string name="amazing_wallpaper_in_your_way">Amazing Wallpaper in your way</string>
+    <string name="set_as">Set as:</string>
 
 </resources>

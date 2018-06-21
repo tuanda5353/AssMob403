@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +33,7 @@ public class LastestFragment extends Fragment {
     private RecyclerView rvLastest;
     private LastestAdapter adapter;
     private ArrayList<HDWALLPAPER> lastests;
+
     public LastestFragment() {
         // Required empty public constructor
     }
@@ -45,7 +45,7 @@ public class LastestFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_lastest, container, false);
         initViews(view);
-        return  view;
+        return view;
     }
 
     private void initViews(View view) {
@@ -54,11 +54,11 @@ public class LastestFragment extends Fragment {
         rvLastest = view.findViewById(R.id.rvLastest);
         lastests = new ArrayList<>();
         // Create adapter passing in the sample user data
-        adapter = new LastestAdapter(getActivity(),lastests);
+        adapter = new LastestAdapter(getActivity(), lastests);
         // Attach the adapter to the recyclerview to populate items
         rvLastest.setAdapter(adapter);
         // Set layout manager to position the items
-        rvLastest.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        rvLastest.setLayoutManager(new GridLayoutManager(getActivity(), 2));
     }
 
     @Override
@@ -67,7 +67,7 @@ public class LastestFragment extends Fragment {
         getLastestImageFromApi();
     }
 
-    private void getLastestImageFromApi(){
+    private void getLastestImageFromApi() {
         Log.d("getData", "getLastestImageFromApi: ");
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
@@ -77,8 +77,8 @@ public class LastestFragment extends Fragment {
             @Override
             public void onResponse(Call<LastestResponse> call, Response<LastestResponse> response) {
                 if (Constant.isDebug)
-                Log.d("Data", "onResponse: "+response.body().getHDWALLPAPER());
-                Log.d("Data", "onResponse: "+response.body().getHDWALLPAPER().get(0).getTotalViews());
+                    Log.d("Data", "onResponse: " + response.body());
+                Log.d("Data", "onResponse: " + response.body().getHDWALLPAPER().get(0).getTotalViews());
                 lastests.addAll(response.body().getHDWALLPAPER());
                 adapter.notifyDataSetChanged();
             }

@@ -14,7 +14,8 @@ import android.widget.Toast;
 import com.example.boylc.assmob403.R;
 import com.example.boylc.assmob403.uis.fragments.AboutUsFragment;
 import com.example.boylc.assmob403.uis.fragments.CategoryFragment;
-import com.example.boylc.assmob403.uis.fragments.GiftFragment;
+import com.example.boylc.assmob403.uis.fragments.FavoritesFragment;
+import com.example.boylc.assmob403.uis.fragments.GifsFragment;
 import com.example.boylc.assmob403.uis.fragments.LastestFragment;
 import com.example.boylc.assmob403.uis.fragments.SettingFragment;
 
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         //todo
         Fragment fragment = null;
-        Class fragmentClass=null;
+        Class fragmentClass = null;
         switch (menuItem.getItemId()) {
             case R.id.nav_home_fragment:
                 fragmentClass = LastestFragment.class;
@@ -79,7 +80,10 @@ public class MainActivity extends AppCompatActivity {
                 fragmentClass = CategoryFragment.class;
                 break;
             case R.id.nav_gift_fragment:
-                fragmentClass = GiftFragment.class;
+                fragmentClass = GifsFragment.class;
+                break;
+            case R.id.nav_favorite_fragment:
+                fragmentClass = FavoritesFragment.class;
                 break;
             case R.id.nav_about_us_fragment:
                 fragmentClass = AboutUsFragment.class;
@@ -99,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
             default:
                 fragmentClass = LastestFragment.class;
         }
-        if (fragmentClass!=null){
+        if (fragmentClass != null) {
             try {
                 fragment = (Fragment) fragmentClass.newInstance();
             } catch (Exception e) {
