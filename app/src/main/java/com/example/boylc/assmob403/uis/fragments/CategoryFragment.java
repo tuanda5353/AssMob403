@@ -72,7 +72,8 @@ public class CategoryFragment extends Fragment {
                 if (Constant.isDebug)
                     Log.d("Data", "onResponse: " + response.body().getCategories());
                 Log.d("Data", "onResponse: " + response.body().getCategories().get(0).getCategoryImage());
-                categories.addAll(response.body().getCategories());
+               categories.addAll(response.body().getCategories());
+
                 categoryAdapter.notifyDataSetChanged();
             }
 
@@ -91,7 +92,7 @@ public class CategoryFragment extends Fragment {
         // Attach the adapter to the recyclerview to populate items
         rvCategory.setAdapter(categoryAdapter);
         // Set layout manager to position the items
-        rvCategory.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvCategory.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
     }
 
 }

@@ -1,8 +1,10 @@
 package com.example.boylc.assmob403.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import com.example.boylc.assmob403.GlideApp;
 import com.example.boylc.assmob403.R;
 import com.example.boylc.assmob403.common.Constant;
 import com.example.boylc.assmob403.model.Category;
+import com.example.boylc.assmob403.uis.activitys.MainActivity;
 import com.example.boylc.assmob403.uis.fragments.AllPhotoOfCategoryFragment;
 
 import java.util.ArrayList;
@@ -50,6 +53,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 .centerCrop()
                 .into(holder.imgCategory);
         holder.txtNameCategory.setText(category.getCategoryName()+" ( "+category.getTotalWallpaper()+" )");
+//        if (position%2==0){
+//            holder.txtNameCategory.setTextColor(Color.RED);
+//        }
     }
 
     @Override
@@ -76,6 +82,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             //todo
             String id = mCategories.get(getAdapterPosition()).getCid();
             String name = mCategories.get(getAdapterPosition()).getCategoryName();
+            ((AppCompatActivity)mContext).getSupportActionBar().setTitle(name);
+            ((AppCompatActivity)mContext).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             if (Constant.isDebug)
             Log.d("getAllPhoto", "onClick: ");
             ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction()

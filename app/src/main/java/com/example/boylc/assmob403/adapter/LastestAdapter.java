@@ -1,6 +1,8 @@
 package com.example.boylc.assmob403.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -50,6 +52,10 @@ public class LastestAdapter extends RecyclerView.Adapter<LastestAdapter.ViewHold
                 .load(hdWallPaper.getWallpaperImageThumb())
                 .into(holder.imgThumb);
         holder.txtTotalView.setText(hdWallPaper.getTotalViews());
+        holder.txtTotalView.setText(hdWallPaper.getTotalViews());
+        if (position%5==0){
+            holder.txtTotalView.setTextColor(Color.RED);
+        }
     }
 
     @Override

@@ -23,6 +23,7 @@ import com.example.boylc.assmob403.model.HDWALLPAPER;
 import com.example.boylc.assmob403.model.LastestResponse;
 import com.example.boylc.assmob403.rest.ApiClient;
 import com.example.boylc.assmob403.rest.ApiInterface;
+import com.example.boylc.assmob403.uis.activitys.MainActivity;
 
 import java.util.ArrayList;
 
@@ -40,7 +41,6 @@ public class AllPhotoOfCategoryFragment extends Fragment {
     ActionBar actionBar;
 
     public static AllPhotoOfCategoryFragment newInstance(String id, String name) {
-
         Bundle args = new Bundle();
         args.putString("id", id);
         args.putString("nameCategory", name);
@@ -60,6 +60,7 @@ public class AllPhotoOfCategoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_all_photo_of_category, container, false);
         initViews(view);
+
         return view;
     }
 
@@ -72,6 +73,8 @@ public class AllPhotoOfCategoryFragment extends Fragment {
     private void getAllPhotoOfCategory() {
         String id = getArguments().getString("id", "-1");
         String name = getArguments().getString("nameCategory", "");
+//        actionBar.setTitle(name);
+//        actionBar.setHomeButtonEnabled(true);
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
@@ -102,7 +105,8 @@ public class AllPhotoOfCategoryFragment extends Fragment {
         rvAllPhotoOfCategory.setAdapter(adapter);
         // Set layout manager to position the items
         rvAllPhotoOfCategory.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+//        actionBar = ((MainActivity) getActivity()).getSupportActionBar();
+
     }
 
 }

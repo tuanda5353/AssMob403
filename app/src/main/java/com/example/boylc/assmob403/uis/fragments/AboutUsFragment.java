@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,7 +79,7 @@ public class AboutUsFragment extends Fragment {
                 txtAppEmail.setText(aboutUs.getAppEmail());
                 txtAppWebsite.setText(aboutUs.getAppWebsite());
                 txtAppContact.setText(aboutUs.getAppContact());
-                txtAppDesc.setText(aboutUs.getAppDescription());
+                txtAppDesc.setText(Html.fromHtml(aboutUs.getAppDescription()));
 
             }
 

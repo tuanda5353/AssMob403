@@ -19,7 +19,6 @@
             android:layout_height="match_parent" />
 
         <TextView
-            android:textColor="@android:color/white"
             android:id="@+id/txt_name_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
