@@ -3,8 +3,6 @@ package com.example.boylc.assmob403.uis.fragments;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -24,7 +22,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.ToxicBakery.viewpager.transforms.ZoomOutSlideTransformer;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -34,7 +31,6 @@ import com.example.boylc.assmob403.adapter.GifsPager;
 import com.example.boylc.assmob403.database.HdwallPaperDatabaseHelper;
 import com.example.boylc.assmob403.model.Gifs;
 import com.example.boylc.assmob403.witget.CustomViewPager;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -47,15 +43,25 @@ import java.util.Random;
  */
 @SuppressLint("ValidFragment")
 public class DetailGiftFragment extends Fragment {
+
     private GifsPager adapter;
+
     private ArrayList<Gifs> mGifs;
+
     private CustomViewPager imgPagerLastest;
+
     private FloatingActionButton fbtnMore;
+
     private int position;
+
     private com.github.clans.fab.FloatingActionMenu menuRed;
+
     private com.github.clans.fab.FloatingActionButton fabFavorite;
+
     private com.github.clans.fab.FloatingActionButton fabShare;
+
     private com.github.clans.fab.FloatingActionButton fabSave;
+
     private com.github.clans.fab.FloatingActionButton fabSetAsWallpaper;
 
     private HdwallPaperDatabaseHelper databaseHelper;
@@ -73,7 +79,7 @@ public class DetailGiftFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail_gift, container, false);
         initViews(view);
         return view;
@@ -113,10 +119,13 @@ public class DetailGiftFragment extends Fragment {
                         .load(mGifs.get(imgPagerLastest.getCurrentItem()).getGifImage())
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
-                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                Log.d("fabShare", "onClick: " + mGifs.get(imgPagerLastest.getCurrentItem()).getGifImage());
-                                if (isStoragePermissionGranted())
+                            public void onResourceReady(@NonNull Bitmap resource,
+                                    @Nullable Transition<? super Bitmap> transition) {
+                                Log.d("fabShare",
+                                        "onClick: " + mGifs.get(imgPagerLastest.getCurrentItem()).getGifImage());
+                                if (isStoragePermissionGranted()) {
                                     saveImage(resource);
+                                }
                             }
                         });
             }
@@ -130,8 +139,10 @@ public class DetailGiftFragment extends Fragment {
                         .load(mGifs.get(imgPagerLastest.getCurrentItem()).getGifImage())
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
-                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                Log.d("fabShare", "onClick: " + mGifs.get(imgPagerLastest.getCurrentItem()).getGifImage());
+                            public void onResourceReady(@NonNull Bitmap resource,
+                                    @Nullable Transition<? super Bitmap> transition) {
+                                Log.d("fabShare",
+                                        "onClick: " + mGifs.get(imgPagerLastest.getCurrentItem()).getGifImage());
                                 shareImage(resource);
                             }
                         });
@@ -145,8 +156,10 @@ public class DetailGiftFragment extends Fragment {
                         .load(mGifs.get(imgPagerLastest.getCurrentItem()).getGifImage())
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
-                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                Log.d("fabShare", "onClick: " + mGifs.get(imgPagerLastest.getCurrentItem()).getGifImage());
+                            public void onResourceReady(@NonNull Bitmap resource,
+                                    @Nullable Transition<? super Bitmap> transition) {
+                                Log.d("fabShare",
+                                        "onClick: " + mGifs.get(imgPagerLastest.getCurrentItem()).getGifImage());
                                 //todo
 //                                setImageAsWallpaper(resource);
                             }
@@ -211,13 +224,15 @@ public class DetailGiftFragment extends Fragment {
             // Use methods on Context to access package-specific directories on external storage.
             // This way, you don't need to request external read/write permission.
             // See https://youtu.be/5xVh-7ywKpE?t=25m25s
-            File file = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_" + System.currentTimeMillis() + ".png");
+            File file = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                    "share_image_" + System.currentTimeMillis() + ".png");
             FileOutputStream out = new FileOutputStream(file);
             bmp.compress(Bitmap.CompressFormat.PNG, 90, out);
             out.close();
 
             // wrap File object into a content provider. NOTE: authority here should match authority in manifest declaration
-            bmpUri = FileProvider.getUriForFile(getActivity(), "com.example.boylc.assmob403", file);  // use this version for API >= 24
+            bmpUri = FileProvider.getUriForFile(getActivity(), "com.example.boylc.assmob403",
+                    file);  // use this version for API >= 24
 
             // **Note:** For API < 24, you may use bmpUri = Uri.fromFile(file);
 
@@ -276,7 +291,9 @@ public class DetailGiftFragment extends Fragment {
             } else {
 
                 Log.d("fabSave", "Permission is revoked");
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                ActivityCompat
+                        .requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                1);
                 return false;
             }
         } else { //permission is automatically granted on sdk<23 upon installation

@@ -4,12 +4,9 @@ package com.example.boylc.assmob403.uis.fragments;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.WallpaperManager;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,29 +18,21 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import com.ToxicBakery.viewpager.transforms.FlipHorizontalTransformer;
 import com.ToxicBakery.viewpager.transforms.ZoomOutSlideTransformer;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.example.boylc.assmob403.GlideApp;
 import com.example.boylc.assmob403.R;
 import com.example.boylc.assmob403.adapter.ImagePager;
-import com.example.boylc.assmob403.adapter.ImagePagerAdapter;
 import com.example.boylc.assmob403.database.HdwallPaperDatabaseHelper;
 import com.example.boylc.assmob403.model.HDWALLPAPER;
 import com.example.boylc.assmob403.witget.CustomViewPager;
-import com.github.clans.fab.FloatingActionMenu;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -55,17 +44,29 @@ import java.util.Random;
  */
 @SuppressLint("ValidFragment")
 public class DetailImageFragment extends Fragment {
+
     public final String APP_TAG = "HD_WALLPAPER";
+
     private ImagePager adapter;
+
     private ArrayList<HDWALLPAPER> mHDWALLPAPER;
+
     private CustomViewPager imgPagerLastest;
+
     private FloatingActionButton fbtnMore;
+
     private int position;
+
     private com.github.clans.fab.FloatingActionMenu menuRed;
+
     private com.github.clans.fab.FloatingActionButton fabFavorite;
+
     private com.github.clans.fab.FloatingActionButton fabShare;
+
     private com.github.clans.fab.FloatingActionButton fabSave;
+
     private com.github.clans.fab.FloatingActionButton fabSetAsWallpaper;
+
     HdwallPaperDatabaseHelper databaseHelper;
 
     public DetailImageFragment() {
@@ -74,12 +75,11 @@ public class DetailImageFragment extends Fragment {
     public DetailImageFragment(ArrayList<HDWALLPAPER> mHDWALLPAPER, int position) {
         this.mHDWALLPAPER = mHDWALLPAPER;
         this.position = position;
-        Log.d("getData", "DetailImageFragment: " + position);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_detail_image, container, false);
         initViews(view);
         return view;
@@ -119,10 +119,13 @@ public class DetailImageFragment extends Fragment {
                         .load(mHDWALLPAPER.get(imgPagerLastest.getCurrentItem()).getWallpaperImage())
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
-                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                Log.d("fabShare", "onClick: " + mHDWALLPAPER.get(imgPagerLastest.getCurrentItem()).getWallpaperImage());
-                                if (isStoragePermissionGranted())
+                            public void onResourceReady(@NonNull Bitmap resource,
+                                    @Nullable Transition<? super Bitmap> transition) {
+                                Log.d("fabShare", "onClick: " + mHDWALLPAPER.get(imgPagerLastest.getCurrentItem())
+                                        .getWallpaperImage());
+                                if (isStoragePermissionGranted()) {
                                     saveImage(resource);
+                                }
                             }
                         });
             }
@@ -136,8 +139,10 @@ public class DetailImageFragment extends Fragment {
                         .load(mHDWALLPAPER.get(imgPagerLastest.getCurrentItem()).getWallpaperImage())
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
-                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                Log.d("fabShare", "onClick: " + mHDWALLPAPER.get(imgPagerLastest.getCurrentItem()).getWallpaperImage());
+                            public void onResourceReady(@NonNull Bitmap resource,
+                                    @Nullable Transition<? super Bitmap> transition) {
+                                Log.d("fabShare", "onClick: " + mHDWALLPAPER.get(imgPagerLastest.getCurrentItem())
+                                        .getWallpaperImage());
                                 shareImage(resource);
                             }
                         });
@@ -151,8 +156,10 @@ public class DetailImageFragment extends Fragment {
                         .load(mHDWALLPAPER.get(imgPagerLastest.getCurrentItem()).getWallpaperImage())
                         .into(new SimpleTarget<Bitmap>() {
                             @Override
-                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                Log.d("fabShare", "onClick: " + mHDWALLPAPER.get(imgPagerLastest.getCurrentItem()).getWallpaperImage());
+                            public void onResourceReady(@NonNull Bitmap resource,
+                                    @Nullable Transition<? super Bitmap> transition) {
+                                Log.d("fabShare", "onClick: " + mHDWALLPAPER.get(imgPagerLastest.getCurrentItem())
+                                        .getWallpaperImage());
                                 setImageAsWallpaper(resource);
                             }
                         });
@@ -202,13 +209,15 @@ public class DetailImageFragment extends Fragment {
             // Use methods on Context to access package-specific directories on external storage.
             // This way, you don't need to request external read/write permission.
             // See https://youtu.be/5xVh-7ywKpE?t=25m25s
-            File file = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_" + System.currentTimeMillis() + ".png");
+            File file = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                    "share_image_" + System.currentTimeMillis() + ".png");
             FileOutputStream out = new FileOutputStream(file);
             bmp.compress(Bitmap.CompressFormat.PNG, 90, out);
             out.close();
 
             // wrap File object into a content provider. NOTE: authority here should match authority in manifest declaration
-            bmpUri = FileProvider.getUriForFile(getActivity(), "com.example.boylc.assmob403", file);  // use this version for API >= 24
+            bmpUri = FileProvider.getUriForFile(getActivity(), "com.example.boylc.assmob403",
+                    file);  // use this version for API >= 24
 
             // **Note:** For API < 24, you may use bmpUri = Uri.fromFile(file);
 
@@ -273,16 +282,14 @@ public class DetailImageFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= 23) {
             if (getActivity().checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED) {
-                Log.d("fabSave", "Permission is granted");
                 return true;
             } else {
-
-                Log.d("fabSave", "Permission is revoked");
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                ActivityCompat
+                        .requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                1);
                 return false;
             }
         } else { //permission is automatically granted on sdk<23 upon installation
-            Log.d("fabSave", "Permission is granted");
             return true;
         }
     }
@@ -290,10 +297,6 @@ public class DetailImageFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Log.v("fabShare", "Permission: " + permissions[0] + "was " + grantResults[0]);
-            //resume tasks needing this permission
-        }
     }
 
 }

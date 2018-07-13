@@ -5,20 +5,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.boylc.assmob403.R;
 import com.example.boylc.assmob403.common.Constant;
 import com.example.boylc.assmob403.model.AboutUs;
 import com.example.boylc.assmob403.model.AboutUsResponse;
-import com.example.boylc.assmob403.model.LastestResponse;
 import com.example.boylc.assmob403.rest.ApiClient;
 import com.example.boylc.assmob403.rest.ApiInterface;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,11 +25,17 @@ import retrofit2.Response;
  * A simple {@link Fragment} subclass.
  */
 public class AboutUsFragment extends Fragment {
+
     private TextView txtAppVersion;
+
     private TextView txtAppAuthor;
+
     private TextView txtAppEmail;
+
     private TextView txtAppWebsite;
+
     private TextView txtAppContact;
+
     private TextView txtAppDesc;
 
 
@@ -42,7 +46,7 @@ public class AboutUsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_about_us, container, false);
         initViews(view);
@@ -60,8 +64,9 @@ public class AboutUsFragment extends Fragment {
     }
 
     private void getAboutUs() {
-        if (Constant.isDebug)
+        if (Constant.isDebug) {
             Log.d("getData", "getAboutUs: ");
+        }
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
 
@@ -69,8 +74,9 @@ public class AboutUsFragment extends Fragment {
         call.enqueue(new Callback<AboutUsResponse>() {
             @Override
             public void onResponse(Call<AboutUsResponse> call, Response<AboutUsResponse> response) {
-                if (Constant.isDebug)
+                if (Constant.isDebug) {
                     Log.d("getAboutUs", "onResponse: " + response.body());
+                }
 
                 AboutUs aboutUs = response.body().getHDWALLPAPER().get(0);
                 txtAppVersion.setText(aboutUs.getAppVersion());
@@ -78,7 +84,7 @@ public class AboutUsFragment extends Fragment {
                 txtAppEmail.setText(aboutUs.getAppEmail());
                 txtAppWebsite.setText(aboutUs.getAppWebsite());
                 txtAppContact.setText(aboutUs.getAppContact());
-                txtAppDesc.setText(aboutUs.getAppDescription());
+                txtAppDesc.setText(Html.fromHtml(aboutUs.getAppDescription()));
 
             }
 

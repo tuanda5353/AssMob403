@@ -10,23 +10,67 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.boylc.assmob403.R;
 import com.example.boylc.assmob403.model.Gifs;
 import com.example.boylc.assmob403.uis.fragments.DetailGiftFragment;
-
 import java.util.ArrayList;
 
 
 public class GifsAdapter extends RecyclerView.Adapter<GifsAdapter.ViewHolder> {
-    private Context mContext;
-    private ArrayList<Gifs> mGifs;
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private ImageView imgThumb;
+
+        private TextView txtTotalLike;
+
+        private TextView txtTotalView;
+
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            imgThumb = itemView.findViewById(R.id.img_thumb);
+            txtTotalView = itemView.findViewById(R.id.txt_total_view);
+            txtTotalLike = itemView.findViewById(R.id.txt_total_like);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Log.d("getData", "onClick: " + getAdapterPosition());
+            detailImageFragment = new DetailGiftFragment(mGifs, getAdapterPosition());
+            ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.flContent, detailImageFragment)
+                    .addToBackStack("Detail")
+                    .commit();
+        }
+    }
+
     private DetailGiftFragment detailImageFragment;
+
+    private Context mContext;
+
+    private ArrayList<Gifs> mGifs;
+
     //todo interface
     public GifsAdapter(Context mContext, ArrayList<Gifs> mGifs) {
         this.mContext = mContext;
         this.mGifs = mGifs;
+    }
+
+    @Override
+    public int getItemCount() {
+        return mGifs.size();
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Gifs gifs = mGifs.get(position);
+        Glide.with(mContext)
+                .load(gifs.getGifImage())
+                .into(holder.imgThumb);
+        holder.txtTotalView.setText(gifs.getTotalViews());
     }
 
     @NonNull
@@ -40,45 +84,5 @@ public class GifsAdapter extends RecyclerView.Adapter<GifsAdapter.ViewHolder> {
         // Return a new holder instance
         return new ViewHolder(imageView);
 
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Gifs gifs = mGifs.get(position);
-        Glide.with(mContext)
-                .load(gifs.getGifImage())
-                .into(holder.imgThumb);
-        holder.txtTotalView.setText(gifs.getTotalViews());
-    }
-
-    @Override
-    public int getItemCount() {
-        return mGifs.size();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private ImageView imgThumb;
-        private TextView txtTotalView;
-        private TextView txtTotalLike;
-
-
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            imgThumb = itemView.findViewById(R.id.img_thumb);
-            txtTotalView = itemView.findViewById(R.id.txt_total_view);
-            txtTotalLike = itemView.findViewById(R.id.txt_total_like);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            Log.d("getData", "onClick: "+getAdapterPosition());
-            detailImageFragment= new DetailGiftFragment(mGifs,getAdapterPosition());
-            ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.flContent, detailImageFragment)
-                    .addToBackStack("Detail")
-                    .commit();
-        }
     }
 }

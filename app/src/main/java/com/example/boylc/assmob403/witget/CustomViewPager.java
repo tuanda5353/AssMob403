@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 public class CustomViewPager extends ViewPager {
+
     public CustomViewPager(@NonNull Context context) {
         super(context);
     }
@@ -15,10 +16,11 @@ public class CustomViewPager extends ViewPager {
     public CustomViewPager(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
+
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
         try {
-            return super.onTouchEvent(ev);
+            return super.onInterceptTouchEvent(ev);
         } catch (IllegalArgumentException ex) {
             ex.printStackTrace();
         }
@@ -26,9 +28,9 @@ public class CustomViewPager extends ViewPager {
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
+    public boolean onTouchEvent(MotionEvent ev) {
         try {
-            return super.onInterceptTouchEvent(ev);
+            return super.onTouchEvent(ev);
         } catch (IllegalArgumentException ex) {
             ex.printStackTrace();
         }

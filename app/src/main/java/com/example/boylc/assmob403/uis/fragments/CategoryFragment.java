@@ -5,28 +5,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-
 import com.example.boylc.assmob403.R;
 import com.example.boylc.assmob403.adapter.CategoryAdapter;
-import com.example.boylc.assmob403.adapter.LastestAdapter;
-import com.example.boylc.assmob403.common.Constant;
 import com.example.boylc.assmob403.model.Category;
 import com.example.boylc.assmob403.model.CategoryResponse;
-import com.example.boylc.assmob403.model.HDWALLPAPER;
-import com.example.boylc.assmob403.model.LastestResponse;
 import com.example.boylc.assmob403.rest.ApiClient;
 import com.example.boylc.assmob403.rest.ApiInterface;
-
 import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,8 +25,11 @@ import retrofit2.Response;
  * A simple {@link Fragment} subclass.
  */
 public class CategoryFragment extends Fragment {
+
     private RecyclerView rvCategory;
+
     private CategoryAdapter categoryAdapter;
+
     private ArrayList<Category> categories;
 
     public CategoryFragment() {
@@ -46,8 +39,7 @@ public class CategoryFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+            Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category, container, false);
         initViews(view);
         return view;
@@ -60,18 +52,12 @@ public class CategoryFragment extends Fragment {
     }
 
     private void getAllCategory() {
-        if (Constant.isDebug)
-            Log.d("getData", "getAllCategory: ");
         ApiInterface apiService =
                 ApiClient.getClient().create(ApiInterface.class);
-
         Call<CategoryResponse> call = apiService.getCategory();
         call.enqueue(new Callback<CategoryResponse>() {
             @Override
             public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
-                if (Constant.isDebug)
-                    Log.d("Data", "onResponse: " + response.body().getCategories());
-                Log.d("Data", "onResponse: " + response.body().getCategories().get(0).getCategoryImage());
                 categories.addAll(response.body().getCategories());
                 categoryAdapter.notifyDataSetChanged();
             }
@@ -91,7 +77,7 @@ public class CategoryFragment extends Fragment {
         // Attach the adapter to the recyclerview to populate items
         rvCategory.setAdapter(categoryAdapter);
         // Set layout manager to position the items
-        rvCategory.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvCategory.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
     }
 
 }

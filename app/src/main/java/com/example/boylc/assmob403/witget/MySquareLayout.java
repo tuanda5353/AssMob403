@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
 public class MySquareLayout extends RelativeLayout {
+
     public MySquareLayout(@NonNull Context context) {
         super(context);
     }

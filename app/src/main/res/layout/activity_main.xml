@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
@@ -34,8 +35,8 @@
         android:layout_gravity="start"
         android:background="@drawable/img_background_nav"
         app:headerLayout="@layout/nav_header"
+        app:itemBackground="@drawable/drawer_selected_item"
         app:itemIconTint="@android:color/white"
         app:itemTextColor="#ffffff"
-        app:itemBackground="@drawable/drawer_selected_item"
         app:menu="@menu/drawer_view" />
 </android.support.v4.widget.DrawerLayout>
