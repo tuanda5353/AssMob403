@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">AssMob403</string>
+    <string name="app_name">HD Wallpaper</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="lastest">Lastest</string>
+    <string name="category">Category</string>
+    <string name="gifs">GIFs</string>
+    <string name="my_favorites">My Favorites</string>
+    <string name="rate_app">Rate App</string>
+    <string name="more_app">More App</string>
+    <string name="about_us">About Us</string>
+    <string name="setting">Setting</string>
+    <string name="privacy_police">Privacy Police</string>
+    <string name="amazing_wallpaper_in_your_way">Amazing Wallpaper in your way</string>
+    <string name="set_as">Set as:</string>
+
 </resources>
