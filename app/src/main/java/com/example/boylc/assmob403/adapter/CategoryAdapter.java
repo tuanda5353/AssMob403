@@ -38,7 +38,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             super(itemView);
             imgCategory = itemView.findViewById(R.id.img_category);
             txtNameCategory = itemView.findViewById(R.id.txt_name_category);
-            mProgressBar = itemView.findViewById(R.id.progress_image);
+            mProgressBar = itemView.findViewById(R.id.progress_category);
             itemView.setOnClickListener(this);
         }
 

@@ -109,17 +109,16 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_about_us_fragment:
                 fragmentClass = AboutUsFragment.class;
                 break;
-            case R.id.nav_setting_fragment:
-                fragmentClass = SettingFragment.class;
-                break;
-            case R.id.nav_rate_app:
-                rateApp();
-                break;
-            case R.id.nav_more_app:
-                openAppRating(this);
-                break;
+//            case R.id.nav_setting_fragment:
+//                fragmentClass = SettingFragment.class;
+//                break;
+//            case R.id.nav_rate_app:
+//                rateApp();
+//                break;
+//            case R.id.nav_more_app:
+//                openAppRating(this);
+//                break;
             case R.id.nav_privacy:
-
                 showDialogPrivacy();
                 break;
             default:
